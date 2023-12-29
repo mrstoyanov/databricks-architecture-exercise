@@ -1,8 +1,8 @@
 # Exercise: Azure Databricks deployment with on-premises connectivity
+![Alt text](architecture.png)
 
 ### Code structure
 The taken approach of the Terraform code structure is a layered and a modularized one.
-
 Layered deployment would mean that firstly the "base" infrastructure components, such as resource groups and virtual networks are deployed. The second layer would deploy storage, secrets, etc. The next layer deploys managed services, such as VMs, Kubernetes, etc.
 
 Modularized deployment of the TF code has the following benefits:
@@ -31,12 +31,12 @@ Deploys a transit virtual network for on-premises connectivity.
 Peers two virtual networks.
 
 #### Storage
-Deploys a storage account and a container.
+Deploys a storage account and a container. Optionally deploys a Private Endpoint.
 
 #### Databricks
-Databricks service deployment.
+Databricks workspace deployment with vnet injection.
 
 ### TODO
 - It would be nice to develop a tagging module with common infrastructure tags.
-- Security & threat analysis
+- Security & threat analysis.
 - Scaling analysis: where could a bottleneck occur?
