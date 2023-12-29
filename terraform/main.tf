@@ -82,15 +82,18 @@ module "databricks" {
     if workspace.enabled
   }
 
-  source                    = "./modules/databricks/"
-  resource_group_name       = azurerm_resource_group.demo.name
-  resource_group_location   = azurerm_resource_group.demo.location
-  databricks_workspace_name = "${each.key}_${random_string.this.result}"
-  sku                       = each.value.sku
-  vnet_name                 = each.value.vnet_name
-  subnet_private_name       = each.value.private_subnet_name
-  subnet_public_name        = each.value.public_subnet_name
-  storage_account_sku_name  = each.value.storage_account_sku_name
+  source                      = "./modules/databricks/"
+  resource_group_name         = azurerm_resource_group.demo.name
+  resource_group_location     = azurerm_resource_group.demo.location
+  databricks_workspace_name   = "${each.key}_${random_string.this.result}"
+  sku                         = each.value.sku
+  vnet_name                   = each.value.vnet_name
+  subnet_private_name         = each.value.private_subnet_name
+  subnet_public_name          = each.value.public_subnet_name
+  storage_account_sku_name    = each.value.storage_account_sku_name
+  udr_extended_infrastructure = each.value.udr_extended_infrastructure
+  udr_control_plane_nat       = each.value.udr_control_plane_nat
+  udr_webapp                  = each.value.udr_webapp
 
   depends_on = [
     module.networks
