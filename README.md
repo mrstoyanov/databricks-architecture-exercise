@@ -1,4 +1,4 @@
-# Azure Databricks deployment with on-premises connectivity
+# Exercise: Azure Databricks deployment with on-premises connectivity
 
 ### Code structure
 The taken approach of the Terraform code structure is a layered and a modularized one.
@@ -37,4 +37,6 @@ Deploys a storage account and a container.
 Databricks service deployment.
 
 ### TODO
-It would be nice to develop a tagging module with common infrastructure tags.
+- It would be nice to develop a tagging module with common infrastructure tags.
+- Security & threat analysis
+- Scaling analysis: where could a bottleneck occur?

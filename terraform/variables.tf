@@ -30,12 +30,15 @@ variable "storage" {
 
 variable "databricks_workspace" {
   type = map(object({
-    enabled                  = bool
-    sku                      = string
-    public_subnet_name       = string
-    private_subnet_name      = string
-    storage_account_sku_name = string
-    vnet_name                = string
+    enabled                     = bool
+    sku                         = string
+    public_subnet_name          = string
+    private_subnet_name         = string
+    storage_account_sku_name    = string
+    vnet_name                   = string
+    udr_extended_infrastructure = string
+    udr_control_plane_nat       = string
+    udr_webapp                  = string
   }))
   description = "Databricks workspace to deploy."
 }

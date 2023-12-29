@@ -37,3 +37,18 @@ variable "storage_account_sku_name" {
   type = string
   description = "The name of the storage tier."
 }
+
+variable "udr_extended_infrastructure" {
+  type = string
+  description = "IP addresses for standby Azure Databricks infrastructure."
+}
+
+variable "udr_control_plane_nat" {
+  type = string
+  description = "IP addresses for the required outbound connections to the Databricks control plane."
+}
+
+variable "udr_webapp" {
+  type = string
+  description = "IP addresses for the required outbound connections to the Databricks web app."
+}

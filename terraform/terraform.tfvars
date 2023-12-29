@@ -13,13 +13,13 @@ vnet = {
     subnet_service_endpoints = { "private" = ["Microsoft.Storage"] }
   },
   "transit" = {
-    enabled                      = true
-    address_space                = ["10.0.252.0/22"]
-    service_delegation           = ""
-    service_delegated_actions    = []
-    subnet_names                 = ["GatewaySubnet", "private_endpoint"]
-    subnet_prefixes              = ["10.0.252.0/24", "10.0.253.0/24"]
-    subnet_service_endpoints     = {}
+    enabled                   = true
+    address_space             = ["10.0.252.0/22"]
+    service_delegation        = ""
+    service_delegated_actions = []
+    subnet_names              = ["GatewaySubnet", "private_endpoint"]
+    subnet_prefixes           = ["10.0.252.0/24", "10.0.253.0/24"]
+    subnet_service_endpoints  = {}
   }
 }
 
@@ -40,12 +40,15 @@ storage = {
 
 databricks_workspace = {
   "demo" = {
-    enabled                  = true
-    sku                      = "trial"
-    public_subnet_name       = "public"
-    private_subnet_name      = "private"
-    storage_account_sku_name = "Standard_LRS"
-    vnet_name                = "databricks_demo"
+    enabled                     = true
+    sku                         = "trial"
+    public_subnet_name          = "public"
+    private_subnet_name         = "private"
+    storage_account_sku_name    = "Standard_LRS"
+    vnet_name                   = "databricks_demo"
+    udr_extended_infrastructure = "20.73.215.48/28"  # West Europe
+    udr_control_plane_nat       = "23.100.0.135/32"  # West Europe
+    udr_webapp                  = "52.232.19.246/32" # West Europe
   }
 }
 
