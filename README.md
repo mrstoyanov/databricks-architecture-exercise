@@ -43,6 +43,16 @@ Deploys a storage account and a container. Optionally deploys a Private Endpoint
 #### Databricks
 Databricks workspace deployment with vnet injection.
 
+### Usage
+
+1. Checkout the git repository
+2. Navigate to ./terraform
+3. Execute
+ - `terraform init` to initialize the terraform directory 
+ - `terraform plan -out=demo.tfplan` to output a plan and save it to a file
+ - `terraform apply demo.tfplan` to provision the infrastructure from the saved file
+ - `terraform destroy` to destroy the infrastructure (with a prompt)
+
 ### TODO
 - It would be nice to develop a tagging module with common infrastructure tags.
 - Security & threat analysis.
