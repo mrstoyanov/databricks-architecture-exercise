@@ -12,15 +12,22 @@ Modularized deployment of the TF code has the following benefits:
 3. readability: fewer logically grouped lines.
 
 ### Exercise considerations
+#### About the modules
 Since this is an exercise, the TF modules are hosted in the same repository.
 
 In an enterprise environment, we could host each module in its own repository. This would allow independent development, versioning and reusability. It would also split the infrastructure in several `.tfstate` files.
 
+#### About the Tfstate
 Also, the `.tfstate` file is saved locally on disk.
 
-In a working environment, we would save the file in a remote backend. For example, on AWS S3 with DynamoDB for state locking.
+In a working environment, we would save the `.tfstate` in a remote backend. For example, on AWS S3 with DynamoDB for state locking.
 
-### Modules
+#### About scaling
+The current implementation provides intial functionality. If we had to scale out, the modules would have to be adapted.
+
+For example, the `vnet_peering` module currently only supports peerings in the same resource group and region.
+
+### TF Modules
 #### Network
 Deploys the base network layer.
 
