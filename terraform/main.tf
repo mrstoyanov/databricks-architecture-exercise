@@ -27,20 +27,6 @@ module "networks" {
   subnet_service_endpoints  = each.value.subnet_service_endpoints
 }
 
-module "vnet_peering" {
-  for_each = var.vnet_peering
-
-  source                  = "./modules/vnet_peering/"
-  resource_group_name     = azurerm_resource_group.demo.name
-  resource_group_location = azurerm_resource_group.demo.location
-  vnet_src_name           = each.key
-  vnet_dst_name           = each.value
-
-  depends_on = [
-    module.networks
-  ]
-}
-
 module "transit_connectivity" {
   source                  = "./modules/transit_connectivity/"
   resource_group_name     = azurerm_resource_group.demo.name
@@ -51,6 +37,21 @@ module "transit_connectivity" {
 
   depends_on = [
     module.networks
+  ]
+}
+
+module "vnet_peering" {
+  for_each = var.vnet_peering
+
+  source                  = "./modules/vnet_peering/"
+  resource_group_name     = azurerm_resource_group.demo.name
+  resource_group_location = azurerm_resource_group.demo.location
+  vnet_src_name           = each.key
+  vnet_dst_name           = each.value
+
+  depends_on = [
+    module.networks,
+    module.transit_connectivity
   ]
 }
 
