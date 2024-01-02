@@ -19,7 +19,7 @@ resource "azurerm_virtual_network_gateway" "this" {
   ip_configuration {
     public_ip_address_id          = azurerm_public_ip.this.id
     private_ip_address_allocation = "Dynamic"
-    subnet_id                     = data.azurerm_subnet.this.id
+    subnet_id                     = data.azurerm_subnet.gateway.id
   }
 }
 

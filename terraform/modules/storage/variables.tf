@@ -1,11 +1,11 @@
 variable "resource_group_name" {
   type        = string
-  description = "The name of the resource group."
+  description = "The name of the resource group for the storage account."
 }
 
 variable "resource_group_location" {
   type        = string
-  description = "The region of the resource group."
+  description = "The region of the resource group for the storage account."
 }
 
 variable "storage_account_name" {
@@ -26,19 +26,4 @@ variable "storage_account_replication_type" {
 variable "storage_container_name" {
   type        = string
   description = "The name of the storage container."
-}
-
-variable "enable_private_endpoint" {
-  type        = bool
-  description = "Whether to enable Private Endpoint on a subnet."
-}
-
-variable "vnet_name" {
-  type        = string
-  description = "The name of the virtual network for the Private Endpoint."
-}
-
-variable "subnet_name" {
-  type        = string
-  description = "The name of the subnet for the Private Endpoint."
 }

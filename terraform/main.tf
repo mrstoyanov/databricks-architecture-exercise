@@ -1,6 +1,8 @@
-resource "azurerm_resource_group" "demo" {
-  name     = "demo"
-  location = "West Europe"
+resource "azurerm_resource_group" "this" {
+  for_each = var.resource_group
+
+  name     = each.key
+  location = each.value
 }
 
 resource "random_string" "this" {
@@ -17,41 +19,17 @@ module "networks" {
 
   source                    = "./modules/networks/"
   vnet_name                 = each.key
-  resource_group_name       = azurerm_resource_group.demo.name
-  resource_group_location   = azurerm_resource_group.demo.location
+  resource_group_name       = each.value.resource_group_name
+  resource_group_location   = each.value.resource_group_location
   address_space             = each.value.address_space
   service_delegation        = each.value.service_delegation
   service_delegated_actions = each.value.service_delegated_actions
   subnet_names              = each.value.subnet_names
   subnet_prefixes           = each.value.subnet_prefixes
   subnet_service_endpoints  = each.value.subnet_service_endpoints
-}
-
-module "transit_connectivity" {
-  source                  = "./modules/transit_connectivity/"
-  resource_group_name     = azurerm_resource_group.demo.name
-  resource_group_location = azurerm_resource_group.demo.location
-  vnet_name               = "transit"
-  subnet_name             = "GatewaySubnet"
-  ipsec_preshared_key     = var.ipsec_preshared_key
 
   depends_on = [
-    module.networks
-  ]
-}
-
-module "vnet_peering" {
-  for_each = var.vnet_peering
-
-  source                  = "./modules/vnet_peering/"
-  resource_group_name     = azurerm_resource_group.demo.name
-  resource_group_location = azurerm_resource_group.demo.location
-  vnet_src_name           = each.key
-  vnet_dst_name           = each.value
-
-  depends_on = [
-    module.networks,
-    module.transit_connectivity
+    azurerm_resource_group.this
   ]
 }
 
@@ -62,18 +40,43 @@ module "storage" {
   }
 
   source                           = "./modules/storage"
-  resource_group_name              = azurerm_resource_group.demo.name
-  resource_group_location          = azurerm_resource_group.demo.location
+  resource_group_name              = each.value.resource_group_name
+  resource_group_location          = each.value.resource_group_location
   storage_account_name             = "${each.key}${random_string.this.result}"
   storage_account_tier             = each.value.account_tier
   storage_account_replication_type = each.value.account_replication_type
   storage_container_name           = each.key
-  enable_private_endpoint          = each.value.enable_private_endpoint
-  vnet_name                        = each.value.vnet_name
-  subnet_name                      = each.value.subnet_name
 
   depends_on = [
-    module.networks
+    azurerm_resource_group.this
+  ]
+}
+
+module "transit_connectivity" {
+  source                          = "./modules/transit_connectivity/"
+  resource_group_name             = azurerm_resource_group.this["transit"].name
+  resource_group_location         = azurerm_resource_group.this["transit"].location
+  ipsec_preshared_key             = var.ipsec_preshared_key
+  enable_private_endpoint         = true
+  private_endpoint_subnet_name    = "private_endpoint"
+  private_connection_storage_name = "databricks${random_string.this.result}"
+
+  depends_on = [
+    module.networks,
+    module.storage
+  ]
+}
+
+module "transit_vnet_peering" {
+  for_each = var.transit_vnet_peering
+
+  source                  = "./modules/transit_vnet_peering/"
+  resource_group_dst_name = each.value
+  vnet_dst_name           = each.key
+
+  depends_on = [
+    module.networks,
+    module.transit_connectivity
   ]
 }
 
@@ -84,8 +87,8 @@ module "databricks" {
   }
 
   source                      = "./modules/databricks/"
-  resource_group_name         = azurerm_resource_group.demo.name
-  resource_group_location     = azurerm_resource_group.demo.location
+  resource_group_name         = each.value.resource_group_name
+  resource_group_location     = each.value.resource_group_location
   databricks_workspace_name   = "${each.key}_${random_string.this.result}"
   sku                         = each.value.sku
   vnet_name                   = each.value.vnet_name
