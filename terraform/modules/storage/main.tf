@@ -1,5 +1,13 @@
+resource "random_string" "this" {
+  length  = 10
+  special = false
+  upper   = false
+  lower   = false
+  numeric = true
+}
+
 resource "azurerm_storage_account" "this" {
-  name                     = var.storage_account_name
+  name                     = "${var.storage_account_prefix}${random_string.this.result}"
   location                 = var.resource_group_location
   resource_group_name      = var.resource_group_name
   account_tier             = var.storage_account_tier

@@ -29,8 +29,8 @@ resource "azurerm_subnet" "this" {
 }
 
 resource "azurerm_network_security_group" "this" {
-  for_each = { 
-    for subnet, prefix in local.subnet_names_prefixes_map : subnet => prefix 
+  for_each = {
+    for subnet, prefix in local.subnet_names_prefixes_map : subnet => prefix
     if subnet != "GatewaySubnet"
   }
 
@@ -40,8 +40,8 @@ resource "azurerm_network_security_group" "this" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "this" {
-  for_each = { 
-    for subnet, prefix in local.subnet_names_prefixes_map : subnet => prefix 
+  for_each = {
+    for subnet, prefix in local.subnet_names_prefixes_map : subnet => prefix
     if subnet != "GatewaySubnet"
   }
 

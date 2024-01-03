@@ -19,22 +19,22 @@ variable "enable_private_endpoint" {
 }
 
 variable "private_endpoint_subnet_name" {
-  type = string
+  type        = string
   description = "The name of the subnet hosting the private endpoint."
 }
 
-variable "private_connection_storage_name" {
-  type = string
-  description = "The name of the storage which the private endpoint should be connected to."
+variable "private_connection_storage_account_id" {
+  type        = list(string)
+  description = "The ids of the storage accounts to which the private endpoint should connect to."
 }
 
 variable "vault_name" {
-  type = string
+  type        = string
   description = "The name of the vault."
-  default = ""
+  default     = ""
 }
 
 variable "vault_sku" {
-  type = string
+  type        = string
   description = "The Name of the SKU used for the vault."
 }
