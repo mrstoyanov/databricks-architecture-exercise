@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 data "azurerm_subnet" "gateway" {
   name                 = "GatewaySubnet"
   virtual_network_name = "transit"

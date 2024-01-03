@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-03T00:01:12.293Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="b1QjU0yIkhFPlDQ-vn66" version="22.1.16" type="device">
+<mxfile host="app.diagrams.net" modified="2024-01-03T14:25:39.438Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="UGvdZrp3ftEKbjzyMakA" version="22.1.16" type="device">
   <diagram name="Page-1" id="wlpCGRaCWPYndiIkK6_C">
     <mxGraphModel dx="978" dy="1689" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -199,6 +199,17 @@
             <Array as="points">
               <mxPoint x="743" y="100" />
             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qWHlPWGPY1Tunr-4K-EF-15" value="Key&lt;br&gt;Vault" style="image;aspect=fixed;html=1;points=[];align=left;fontSize=12;image=img/lib/azure2/security/Key_Vaults.svg;labelPosition=right;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="536" y="-87.5" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qWHlPWGPY1Tunr-4K-EF-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.567;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="36lTpFecWONafMQtDg19-14" target="qWHlPWGPY1Tunr-4K-EF-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qWHlPWGPY1Tunr-4K-EF-17" value="get&lt;br&gt;preshared&lt;br&gt;key" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;labelPosition=left;verticalLabelPosition=middle;" vertex="1" connectable="0" parent="qWHlPWGPY1Tunr-4K-EF-16">
+          <mxGeometry y="3" relative="1" as="geometry">
+            <mxPoint x="-2" y="-11" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>

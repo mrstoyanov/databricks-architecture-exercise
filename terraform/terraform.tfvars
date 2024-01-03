@@ -66,4 +66,4 @@ databricks_workspace = {
 # (!) The key is part of the code only for the purpose of this exercise.
 # Sensitive values should be fetched from an external provider,
 # e.g. from a password vault.
-ipsec_preshared_key = "q*RSo-x-!c1IJ480_zw5ui2b"
+ipsec_preshared_key = ""
