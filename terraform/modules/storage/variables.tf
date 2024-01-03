@@ -8,9 +8,9 @@ variable "resource_group_location" {
   description = "The region of the resource group for the storage account."
 }
 
-variable "storage_account_name" {
+variable "storage_account_prefix" {
   type        = string
-  description = "The name of the storage account."
+  description = "The prefix of the storage account name."
 }
 
 variable "storage_account_tier" {

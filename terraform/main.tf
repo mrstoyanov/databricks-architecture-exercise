@@ -5,12 +5,6 @@ resource "azurerm_resource_group" "this" {
   location = each.value
 }
 
-resource "random_string" "this" {
-  length  = 6
-  special = false
-  upper   = false
-}
-
 module "networks" {
   for_each = {
     for vnet_name, vnet in var.vnet : vnet_name => vnet
@@ -42,7 +36,7 @@ module "storage" {
   source                           = "./modules/storage"
   resource_group_name              = each.value.resource_group_name
   resource_group_location          = each.value.resource_group_location
-  storage_account_name             = "${each.key}${random_string.this.result}"
+  storage_account_prefix           = each.key
   storage_account_tier             = each.value.account_tier
   storage_account_replication_type = each.value.account_replication_type
   storage_container_name           = each.key
@@ -53,14 +47,14 @@ module "storage" {
 }
 
 module "transit_connectivity" {
-  source                          = "./modules/transit_connectivity/"
-  resource_group_name             = azurerm_resource_group.this["transit"].name
-  resource_group_location         = azurerm_resource_group.this["transit"].location
-  ipsec_preshared_key             = var.ipsec_preshared_key
-  enable_private_endpoint         = true
-  private_endpoint_subnet_name    = "private_endpoint"
-  private_connection_storage_name = "databricks${random_string.this.result}"
-  vault_sku                       = "standard"
+  source                                = "./modules/transit_connectivity/"
+  resource_group_name                   = azurerm_resource_group.this["transit"].name
+  resource_group_location               = azurerm_resource_group.this["transit"].location
+  ipsec_preshared_key                   = var.ipsec_preshared_key
+  enable_private_endpoint               = true
+  private_endpoint_subnet_name          = "private_endpoint"
+  private_connection_storage_account_id = values(module.storage)[*].storage_account_id
+  vault_sku                             = "standard"
 
   depends_on = [
     module.networks,
@@ -90,7 +84,7 @@ module "databricks" {
   source                      = "./modules/databricks/"
   resource_group_name         = each.value.resource_group_name
   resource_group_location     = each.value.resource_group_location
-  databricks_workspace_name   = "${each.key}_${random_string.this.result}"
+  databricks_workspace_name   = each.key
   sku                         = each.value.sku
   vnet_name                   = each.value.vnet_name
   subnet_private_name         = each.value.private_subnet_name
