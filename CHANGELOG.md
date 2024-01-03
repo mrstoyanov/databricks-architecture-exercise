@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2024-01-03
+### Added
+- Add a Key Vault to store and fetch the IPsec preshared key
+- Update the architecture diagram to reflect the above
+
 ## [0.3.0] - 2024-01-02
 ### Changed
 - Change the vnet_peering module from a generic one to a "transit vnet to databricks vnet" one.

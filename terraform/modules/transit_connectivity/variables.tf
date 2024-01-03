@@ -27,3 +27,14 @@ variable "private_connection_storage_name" {
   type = string
   description = "The name of the storage which the private endpoint should be connected to."
 }
+
+variable "vault_name" {
+  type = string
+  description = "The name of the vault."
+  default = ""
+}
+
+variable "vault_sku" {
+  type = string
+  description = "The Name of the SKU used for the vault."
+}

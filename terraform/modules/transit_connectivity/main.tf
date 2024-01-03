@@ -45,5 +45,5 @@ resource "azurerm_virtual_network_gateway_connection" "onpremise" {
   virtual_network_gateway_id = azurerm_virtual_network_gateway.this.id
   local_network_gateway_id   = azurerm_local_network_gateway.this.id
 
-  shared_key = var.ipsec_preshared_key
+  shared_key = azurerm_key_vault_secret.ipsec.version
 }

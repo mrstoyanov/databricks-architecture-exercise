@@ -60,6 +60,7 @@ module "transit_connectivity" {
   enable_private_endpoint         = true
   private_endpoint_subnet_name    = "private_endpoint"
   private_connection_storage_name = "databricks${random_string.this.result}"
+  vault_sku                       = "standard"
 
   depends_on = [
     module.networks,
