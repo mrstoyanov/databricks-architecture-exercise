@@ -1,6 +1,13 @@
+variable "resource_group" {
+  type        = map(string)
+  description = "Name and location of the resource group."
+}
+
 variable "vnet" {
   type = map(object({
     enabled                   = bool
+    resource_group_name       = string
+    resource_group_location   = string
     address_space             = list(string)
     service_delegation        = string
     service_delegated_actions = list(string)
@@ -11,19 +18,18 @@ variable "vnet" {
   description = "Networks to deploy."
 }
 
-variable "vnet_peering" {
+variable "transit_vnet_peering" {
   type        = map(string)
-  description = "Virtual network peering map."
+  description = "Peering map {vnet_name:resource_group_name} to the transit virtual network."
 }
 
 variable "storage" {
   type = map(object({
     enabled                  = bool
+    resource_group_name      = string
+    resource_group_location  = string
     account_tier             = string
     account_replication_type = string
-    enable_private_endpoint  = bool
-    vnet_name                = string
-    subnet_name              = string
   }))
   description = "Storage to deploy."
 }
@@ -31,6 +37,8 @@ variable "storage" {
 variable "databricks_workspace" {
   type = map(object({
     enabled                     = bool
+    resource_group_name         = string
+    resource_group_location     = string
     sku                         = string
     public_subnet_name          = string
     private_subnet_name         = string

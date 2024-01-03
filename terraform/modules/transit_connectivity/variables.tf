@@ -13,12 +13,17 @@ variable "ipsec_preshared_key" {
   description = "IPsec authentication key."
 }
 
-variable "vnet_name" {
-  type        = string
-  description = "The name of the virtual network for the Private Endpoint."
+variable "enable_private_endpoint" {
+  type        = bool
+  description = "Whether to enable Private Endpoint on a subnet."
 }
 
-variable "subnet_name" {
-  type        = string
-  description = "The name of the subnet for the Private Endpoint."
+variable "private_endpoint_subnet_name" {
+  type = string
+  description = "The name of the subnet hosting the private endpoint."
+}
+
+variable "private_connection_storage_name" {
+  type = string
+  description = "The name of the storage which the private endpoint should be connected to."
 }

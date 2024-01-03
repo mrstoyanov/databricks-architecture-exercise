@@ -17,15 +17,21 @@ Since this is an exercise, the TF modules are hosted in the same repository.
 
 In an enterprise environment, we could host each module in its own repository. This would allow independent development, versioning and reusability. It would also split the infrastructure in several `.tfstate` files.
 
+This approach is represented by the `depends_on = []` meta-argument for the sake of the exercise.
+
 #### About the Tfstate
 Also, the `.tfstate` file is saved locally on disk.
 
 In a working environment, we would save the `.tfstate` in a remote backend. For example, on AWS S3 with DynamoDB for state locking.
 
+#### About the .tfvars file
+In a working environment, this file would usually be part of a separate repository and not part of the module's one.
+Or it may not exist at all and the variables could be provided by an orchestrator such as Jenkins.
+
 #### About scaling
 The current implementation provides intial functionality. If we had to scale out, the modules would have to be adapted.
 
-For example, the `vnet_peering` module currently only supports peerings in the same resource group and region.
+For example, the current implementation assumes one storage account for multiple Databricks workspaces.
 
 ### TF Modules
 #### Network
@@ -34,8 +40,8 @@ Deploys the base network layer.
 #### Transit connectivity
 Deploys a transit virtual network for on-premises connectivity.
 
-#### Virtual network peering
-Peers two virtual networks.
+#### Transit virtual network peering
+Peer a virtual network to the transit one.
 
 #### Storage
 Deploys a storage account and a container. Optionally deploys a Private Endpoint.
