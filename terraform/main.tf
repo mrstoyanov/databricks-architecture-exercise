@@ -51,7 +51,6 @@ module "transit_connectivity" {
   resource_group_name                   = azurerm_resource_group.this["transit"].name
   resource_group_location               = azurerm_resource_group.this["transit"].location
   ipsec_preshared_key                   = var.ipsec_preshared_key
-  enable_private_endpoint               = true
   private_endpoint_subnet_name          = "private_endpoint"
   private_connection_storage_account_id = values(module.storage)[*].storage_account_id
   vault_sku                             = "standard"

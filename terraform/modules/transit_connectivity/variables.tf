@@ -13,11 +13,6 @@ variable "ipsec_preshared_key" {
   description = "IPsec authentication key."
 }
 
-variable "enable_private_endpoint" {
-  type        = bool
-  description = "Whether to enable Private Endpoint on a subnet."
-}
-
 variable "private_endpoint_subnet_name" {
   type        = string
   description = "The name of the subnet hosting the private endpoint."
